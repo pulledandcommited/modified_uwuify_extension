@@ -24,7 +24,6 @@
     {
       "resources": [
         "resources/local_styles.css",
-        "resources/icon.png",
         "resources/a2.png",
         "resources/a3.png",
         "resources/a4.png",
@@ -53,6 +52,6 @@
     "open_in_tab": true
   },
   "icons": {
-    "32": "resources/icon.png"
+    "128": "resources/a4.png"
   }
 }

@@ -91,7 +91,14 @@ async function uwuify(str) {
         .replace(/ss|SS/g, 'sh')
         .replace(/n([aeiou])/g, 'ny$1')
         .replace(/N([aeiou])/g, 'Ny$1')
-        .replace(/N([AEIOU])/g, 'Ny$1');
+		.replace(/N([AEIOU])/g, 'Ny$1')
+		.replace(/([Нн])а/g, "$1ья")
+		.replace(/([Нн])у/g, "$1ью")
+		.replace(/в/g, "ф")
+		.replace(/ль/g, "л")
+		.replace(/([ЧчЩщ])а/g, "$1я")
+		.replace(/([ЧчЩщ])у/g, "$1ю")
+		.replace(/([Лл])/g, "$1ь");
 
     if ((await checkUwuAmount() == true)) {
         let sentences = str.split(/(?<=[.,!?])\s+/);
@@ -99,7 +106,7 @@ async function uwuify(str) {
             let words = sentences[i].split(' ');
             if (words.length >= 1) {
                 if (Math.random() < 0.1) {
-                    let additions = [' nya', ' hehe', ' uwu', ' owo'];
+                    let additions = [' nya', ' ня', ' hehe', ' хихи', ' uwu', ' owo'];
                     let addition = additions[Math.floor(Math.random() * additions.length)];
                     let lastWord = words[words.length - 1];
                     let punctuation = '';
