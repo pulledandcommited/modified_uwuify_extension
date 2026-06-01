@@ -62,6 +62,11 @@ async function checkUwuAmount() {
     return value;
 }
 
+async function checkkrt() {
+    const value = await getState('prefs_krt');
+    return value;
+}
+
 async function uwuifyText(node) {
     if (node.nodeType === Node.TEXT_NODE) {
         if (!/\S/.test(node.textContent)) {
@@ -99,6 +104,11 @@ async function uwuify(str) {
 		.replace(/([ЧчЩщ])а/g, "$1я")
 		.replace(/([ЧчЩщ])у/g, "$1ю")
 		.replace(/([Лл])/g, "$1ь");
+		
+	if ((await checkkrt() == true)) {
+		str = str.replace(/([ЛР])/g, "В")
+			.replace(/([лр])/g, 'в');
+	}
 
     if ((await checkUwuAmount() == true)) {
         let sentences = str.split(/(?<=[.,!?])\s+/);
