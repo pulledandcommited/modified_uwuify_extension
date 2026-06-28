@@ -14,8 +14,8 @@ function connect_prefs() {
     const uwu_off_btn = document.getElementById('uwuify_off_btn');
     const moreuwu_on_btn = document.getElementById('enable_moreuwu_btn');
     const moreuwu_off_btn = document.getElementById('disable_moreuwu_btn');
-	const krt_on_btn = document.getElementById('enable_krt_btn');
-    const krt_off_btn = document.getElementById('disable_krt_btn');
+	const burr_on_btn = document.getElementById('enable_burr_btn');
+    const burr_off_btn = document.getElementById('disable_burr_btn');
     const uwu_re_btn = document.getElementById('uwuify_btn');
     const enable_warn_btn = document.getElementById('enable_warning');
     const get_wl_btn = document.getElementById('get_whitelist_btn');
@@ -65,16 +65,16 @@ function connect_prefs() {
         });
     }
 	
-	if (krt_on_btn) {
-        krt_on_btn.addEventListener('click', async () => {
-            enable_krt();
+	if (burr_on_btn) {
+        burr_on_btn.addEventListener('click', async () => {
+            enable_burr();
             await populate_prefs();
         });
     }
 
-    if (krt_off_btn) {
-        krt_off_btn.addEventListener('click', async () => {
-            disable_krt();
+    if (burr_off_btn) {
+        burr_off_btn.addEventListener('click', async () => {
+            disable_burr();
             await populate_prefs();
         });
     }
@@ -237,16 +237,16 @@ async function populate_prefs() {
             disable_moreuwu_btn.style.border = value === false || value === undefined ? '1px solid rgb(238, 238, 238)' : '1px solid rgb(0,0,0,.3)';
         }
     });
-	getState('prefs_krt').then(value => {
-        const krt_info = document.getElementById('krt');
-        const enable_krt_btn = document.getElementById('enable_krt_btn');
-        const disable_krt_btn = document.getElementById('disable_krt_btn');
-        if (krt_info) {
-            krt_info.innerText = value === true ? 'on' : 'off';
+	getState('prefs_burr').then(value => {
+        const burr_info = document.getElementById('burr');
+        const enable_burr_btn = document.getElementById('enable_burr_btn');
+        const disable_burr_btn = document.getElementById('disable_burr_btn');
+        if (burr_info) {
+            burr_info.innerText = value === true ? 'on' : 'off';
         }
-        if (enable_krt_btn && disable_krt_btn) {
-            enable_krt_btn.style.border = value === true ? '1px solid rgb(238, 238, 238)' : '1px solid rgb(0,0,0,.3)';
-            disable_krt_btn.style.border = value === false || value === undefined ? '1px solid rgb(238, 238, 238)' : '1px solid rgb(0,0,0,.3)';
+        if (enable_burr_btn && disable_burr_btn) {
+            enable_burr_btn.style.border = value === true ? '1px solid rgb(238, 238, 238)' : '1px solid rgb(0,0,0,.3)';
+            disable_burr_btn.style.border = value === false || value === undefined ? '1px solid rgb(238, 238, 238)' : '1px solid rgb(0,0,0,.3)';
         }
     });
     if (version_out) {
@@ -366,12 +366,12 @@ function disable_moreuwu() {
     api.storage.sync.set({ prefs_moreuwu: false });
 }
 
-function enable_krt() {
-    api.storage.sync.set({ prefs_krt: true });
+function enable_burr() {
+    api.storage.sync.set({ prefs_burr: true });
 }
 
-function disable_krt() {
-    api.storage.sync.set({ prefs_krt: false });
+function disable_burr() {
+    api.storage.sync.set({ prefs_burr: false });
 }
 
 function resetWarnings() {

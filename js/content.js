@@ -3,7 +3,7 @@ var api = typeof browser !== 'undefined' ? browser : chrome;
 async function safe_uwuify() {
     const value = await getState('prefs_uwuify');
     if (value) {
-        await callSafe_bg(true);
+		await callSafe_bg(true);
     }
 }
 
@@ -14,6 +14,21 @@ api.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 });
 
 async function call_uwuify() {
+	// AI GENERATED PIECE OF CODE BECAUSE IM TOO DUMB TO FIGURE THIS OUT MYSELF 
+	const observer = new MutationObserver((mutations) => {
+		mutations.forEach((mutation) => {
+			mutation.addedNodes.forEach((node) => {
+				if (node.nodeType === Node.ELEMENT_NODE) {
+					node.querySelectorAll('*').forEach((child) => {
+					   uwuifyText(child);
+					});
+				}
+			});
+		});
+	});
+	observer.observe(document.body, {childList: true, subtree: true});
+	/////////
+	
     await uwuifyText(document.body);
 }
 
@@ -62,8 +77,8 @@ async function checkUwuAmount() {
     return value;
 }
 
-async function checkkrt() {
-    const value = await getState('prefs_krt');
+async function checkburr() {
+    const value = await getState('prefs_burr');
     return value;
 }
 
@@ -89,9 +104,7 @@ async function uwuifyText(node) {
 }
 
 async function uwuify(str) {
-    str = str.replace(/r|l/g, 'w')
-        .replace(/R|L/g, 'W')
-        .replace(/Chr|chr/g, 'cw')
+    str = str.replace(/Chr|chr/g, 'cw')
         .replace(/Ove|ove/g, 'uv')
         .replace(/ss|SS/g, 'sh')
         .replace(/n([aeiou])/g, 'ny$1')
@@ -103,10 +116,14 @@ async function uwuify(str) {
 		.replace(/ль/g, "л")
 		.replace(/([ЧчЩщ])а/g, "$1я")
 		.replace(/([ЧчЩщ])у/g, "$1ю")
-		.replace(/([Лл])/g, "$1ь");
+		.replace(/([Лл])/g, "$1ь")
+		.replace(/ия/g, "ья")
+		.replace(/ИЯ/g, "ЬЯ");
 		
-	if ((await checkkrt() == true)) {
-		str = str.replace(/([ЛР])/g, "В")
+	if ((await checkburr() == true)) {
+		str = str.replace(/r|l/g, 'w')
+			.replace(/R|L/g, 'W')
+			.replace(/([ЛР])/g, "В")
 			.replace(/([лр])/g, 'в');
 	}
 
@@ -132,6 +149,7 @@ async function uwuify(str) {
         }
         str = sentences.join(' ');
     }
+	
     return str;
 }
 
