@@ -159,14 +159,19 @@ async function uwuify(str) {
         for (let i = 0; i < sentences.length; i++) {
             let words = sentences[i].split(' ');
             if (words.length >= 1) {
-                if (Math.random() < 0.03) { // CHANCE
-                    let lastWord = words[words.length - 1];
+                if (Math.random() < 0.04) { // CHANCE
+					let randomIndex = Math.floor(Math.random() * words.length);
+					let randomWord = words[randomIndex];
+					if (randomWord.length < 4) {
+						continue;
+					}
+					
 					if (Math.random() < 0.5) {
-						words[words.length - 1] = '<b><span style="text-shadow: 0px 0px 8px rgba(255, 0, 0, 1); color:red;">' + lastWord + '</span></b>';
+						words[randomIndex] = '<b><span style="text-shadow: 0px 0px 8px rgba(255, 0, 0, 1); color:red;">' + randomWord + '</span></b>';
                     
 					}
 					else {
-						words[words.length - 1] = '<b><span style="text-shadow: 0px 0px 8px rgba(255, 255, 0, 1); color:yellow;">' + lastWord + '</span></b>';
+						words[randomIndex] = '<b><span style="text-shadow: 0px 0px 8px rgba(255, 255, 0, 1); color:yellow;">' + randomWord + '</span></b>';
                     
 					}
                     sentences[i] = words.join(' ');
