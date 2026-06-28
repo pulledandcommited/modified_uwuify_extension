@@ -10,12 +10,16 @@ document.addEventListener('DOMContentLoaded', async function () {
 });
 
 function connect_prefs() {
-    const uwu_on_btn = document.getElementById('uwuify_on_btn');
-    const uwu_off_btn = document.getElementById('uwuify_off_btn');
+    const permauwu_on_btn = document.getElementById('permauwu_on_btn');
+    const permauwu_off_btn = document.getElementById('permauwu_off_btn');
+	const uwuify_on_btn = document.getElementById('uwuify_on_btn');
+    const uwuify_off_btn = document.getElementById('uwuify_off_btn');
     const moreuwu_on_btn = document.getElementById('enable_moreuwu_btn');
     const moreuwu_off_btn = document.getElementById('disable_moreuwu_btn');
 	const burr_on_btn = document.getElementById('enable_burr_btn');
     const burr_off_btn = document.getElementById('disable_burr_btn');
+	const dr_text_highlight_on_btn = document.getElementById('enable_dr_text_highlight_btn');
+    const dr_text_highlight_off_btn = document.getElementById('disable_dr_text_highlight_btn');
     const uwu_re_btn = document.getElementById('uwuify_btn');
     const enable_warn_btn = document.getElementById('enable_warning');
     const get_wl_btn = document.getElementById('get_whitelist_btn');
@@ -37,16 +41,30 @@ function connect_prefs() {
     const icon_hr5btn = document.getElementById('icon_hr5_btn');
     const icon_hr6btn = document.getElementById('icon_hr6_btn');
 
-    if (uwu_on_btn) {
-        uwu_on_btn.addEventListener('click', async () => {
-            enableUwuify();
+    if (uwuify_on_btn) {
+        uwuify_on_btn.addEventListener('click', async () => {
+            enable_uwuify();
             await populate_prefs();
         });
     }
 
-    if (uwu_off_btn) {
-        uwu_off_btn.addEventListener('click', async () => {
-            disableUwuify();
+    if (uwuify_off_btn) {
+        uwuify_off_btn.addEventListener('click', async () => {
+            disable_uwuify();
+            await populate_prefs();
+        });
+    }
+	
+	if (permauwu_on_btn) {
+        permauwu_on_btn.addEventListener('click', async () => {
+            enable_permauwu();
+            await populate_prefs();
+        });
+    }
+
+    if (permauwu_off_btn) {
+        permauwu_off_btn.addEventListener('click', async () => {
+            disable_permauwu();
             await populate_prefs();
         });
     }
@@ -75,6 +93,20 @@ function connect_prefs() {
     if (burr_off_btn) {
         burr_off_btn.addEventListener('click', async () => {
             disable_burr();
+            await populate_prefs();
+        });
+    }
+	
+	if (dr_text_highlight_on_btn) {
+        dr_text_highlight_on_btn.addEventListener('click', async () => {
+            enable_dr_text_highlight();
+            await populate_prefs();
+        });
+    }
+
+    if (dr_text_highlight_off_btn) {
+        dr_text_highlight_off_btn.addEventListener('click', async () => {
+            disable_dr_text_highlight();
             await populate_prefs();
         });
     }
@@ -213,8 +245,20 @@ async function populate_prefs() {
     const version_out = document.getElementById('version_out');
     const ps_parents = document.querySelectorAll('.pref-section');
 
-    getState('prefs_uwuify').then(value => {
-        const uwuStateInfo = document.getElementById('uwu_state');
+    getState('prefs_permauwu').then(value => {
+        const uwuStateInfo = document.getElementById('permauwu_state');
+        const permauwu_on_btn = document.getElementById('permauwu_on_btn');
+        const permauwu_off_btn = document.getElementById('permauwu_off_btn');
+        if (uwuStateInfo) {
+            uwuStateInfo.innerText = value === true ? 'on' : 'off';
+        }
+        if (permauwu_on_btn && permauwu_off_btn) {
+            permauwu_on_btn.style.border = value === true ? '1px solid rgb(238, 238, 238)' : '1px solid rgb(0,0,0,.3)';
+            permauwu_off_btn.style.border = value === false || value === undefined ? '1px solid rgb(238, 238, 238)' : '1px solid rgb(0,0,0,.3)';
+        }
+    });
+	 getState('prefs_uwuify').then(value => {
+        const uwuStateInfo = document.getElementById('uwuify_state');
         const uwuify_on_btn = document.getElementById('uwuify_on_btn');
         const uwuify_off_btn = document.getElementById('uwuify_off_btn');
         if (uwuStateInfo) {
@@ -247,6 +291,18 @@ async function populate_prefs() {
         if (enable_burr_btn && disable_burr_btn) {
             enable_burr_btn.style.border = value === true ? '1px solid rgb(238, 238, 238)' : '1px solid rgb(0,0,0,.3)';
             disable_burr_btn.style.border = value === false || value === undefined ? '1px solid rgb(238, 238, 238)' : '1px solid rgb(0,0,0,.3)';
+        }
+    });
+	getState('prefs_dr_text_highlight').then(value => {
+        const dr_text_highlight_info = document.getElementById('dr_text_highlight');
+        const enable_dr_text_highlight_btn = document.getElementById('enable_dr_text_highlight_btn');
+        const disable_dr_text_highlight_btn = document.getElementById('disable_dr_text_highlight_btn');
+        if (dr_text_highlight_info) {
+            dr_text_highlight_info.innerText = value === true ? 'on' : 'off';
+        }
+        if (enable_dr_text_highlight_btn && disable_dr_text_highlight_btn) {
+            enable_dr_text_highlight_btn.style.border = value === true ? '1px solid rgb(238, 238, 238)' : '1px solid rgb(0,0,0,.3)';
+            disable_dr_text_highlight_btn.style.border = value === false || value === undefined ? '1px solid rgb(238, 238, 238)' : '1px solid rgb(0,0,0,.3)';
         }
     });
     if (version_out) {
@@ -350,12 +406,20 @@ function applytheme(theme) {
     }
 }
 
-function enableUwuify() {
+function enable_uwuify() {
     api.storage.sync.set({ prefs_uwuify: true });
 }
 
-function disableUwuify() {
+function disable_uwuify() {
     api.storage.sync.set({ prefs_uwuify: false });
+}
+
+function enable_permauwu() {
+    api.storage.sync.set({ prefs_permauwu: true });
+}
+
+function disable_permauwu() {
+    api.storage.sync.set({ prefs_permauwu: false });
 }
 
 function enable_moreuwu() {
@@ -372,6 +436,14 @@ function enable_burr() {
 
 function disable_burr() {
     api.storage.sync.set({ prefs_burr: false });
+}
+
+function enable_dr_text_highlight() {
+    api.storage.sync.set({ prefs_dr_text_highlight: true });
+}
+
+function disable_dr_text_highlight() {
+    api.storage.sync.set({ prefs_dr_text_highlight: false });
 }
 
 function resetWarnings() {

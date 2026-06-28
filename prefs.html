@@ -34,9 +34,26 @@
             </div>
         </div>
         <div class="pref-section" id="ps_permauwu">
-            <div class="main_detail">Perma-uwu<span id="uwu_state"></span></div>
+            <div class="main_detail">Auto-update<span id="permauwu_state"></span></div>
             <div class="main_setting">
-                <h1>Perma-uwu</h1>
+                <h1>Auto-update</h1>
+                <label>
+                    <input type="button" class="link" id="permauwu_on_btn" value="on">
+                </label>
+                <label>
+                    <input type="button" class="link" id="permauwu_off_btn" value="off">
+                </label>
+                <br><br>
+                <span class="info-detail">
+                    automatically update text on every page you visit, except for whitelisted domains.<br>
+                    you'll be able to update text on sites manually even if this is off
+                </span>
+            </div>
+        </div>
+		<div class="pref-section" id="ps_uwuify">
+            <div class="main_detail">Uwuify<span id="uwuify_state"></span></div>
+            <div class="main_setting">
+                <h1>Uwuify</h1>
                 <label>
                     <input type="button" class="link" id="uwuify_on_btn" value="on">
                 </label>
@@ -45,15 +62,15 @@
                 </label>
                 <br><br>
                 <span class="info-detail">
-                    automatically uwuify every page you visit, except for whitelisted domains.<br>
-                    you'll be able to uwuify sites manually even if this is off
+                    replaces many letters or letter combinations to simpler ones.<br>
+					make everything more ✨uwu✨ and ✨nya✨
                 </span>
             </div>
         </div>
         <div class="pref-section" id="ps_moreuwu">
-            <div class="main_detail">More uwuifying<span id="uwu_amount"></span></div>
+            <div class="main_detail">Add uwus<span id="uwu_amount"></span></div>
             <div class="main_setting">
-                <h1>More uwuifying</h1>
+                <h1>Add uwus</h1>
                 <label>
                     <input type="button" class="link" id="enable_moreuwu_btn" value="on">
                 </label>
@@ -62,7 +79,7 @@
                 </label>
                 <br><br>
                 <span class="info-detail">
-                    when uwuifying, add phrases like "uwu" or "nya!" to the end of sentences sometimes<br>
+                    add phrases like "uwu" or "nya!" to the end of sentences sometimes<br>
                     this may excessively modify text when manually uwuifying multiple times in a row
                 </span>
             </div>
@@ -79,7 +96,23 @@
                 </label>
                 <br><br>
                 <span class="info-detail">
-					pwease, stop! basically replaces "r", "l" with "w".
+					pwease, stop waughing! basically replaces "r", "l" with "w".
+                </span>
+            </div>
+        </div>
+		<div class="pref-section" id="ps_dr_text_highlight">
+            <div class="main_detail">TEXT HIGHLIGHT<span id="dr_text_highlight"></span></div>
+            <div class="main_setting">
+                <h1>TEXT HIGHLIGHT</h1>
+                <label>
+                    <input type="button" class="link" id="enable_dr_text_highlight_btn" value="on">
+                </label>
+                <label>
+                    <input type="button" class="link" id="disable_dr_text_highlight_btn" value="off">
+                </label>
+                <br><br>
+                <span class="info-detail">
+					Highlight text like in those <b><span style="text-shadow: 0px 0px 8px rgba(255, 0, 0, 1); color:red;">DELTARUNE</span></b> memes.<br>REALLY BROKEN BUT STILL WORKS, PRETTY WEIRD, ISN'T IT?
                 </span>
             </div>
         </div>
@@ -137,7 +170,7 @@
                 </label>
                 <br><br>
                 <span class="info-detail">
-                    by default, uwuifying the current page is set to [ctrl+shift+U] but you, the browser, or other extensions can override this.
+                    by default, updating the current page is set to [ctrl+shift+U] but you, the browser, or other extensions can override this.
                 </span>
             </div>
         </div>
@@ -145,7 +178,7 @@
             <div class="main_detail">Info</div>
             <div class="main_setting">
                 <h1>Info</h1>
-                uwuify-doer ver. <span class="main_description" id="version_out"></span>
+                uwuify-doer fork. hello!
                 <br><br>
                 Distributed under the MIT License
                 <br><br>
@@ -155,25 +188,11 @@
                 <a class="footer_link panel_footer" href="README.md">readme</a>]
             </div>
         </div>
-        <div class="pref-section" id="ps_feedback">
-            <div class="main_detail">Feedback</div>
-            <div class="main_setting">
-                <h1>Feedback</h1>
-                Since uwuify itself doesn't collect any user data, I don't really
-                know what parts of uwuify people use or like the most, so I'd love
-                to hear any thoughts you have!<br>
-                Plus the form doesn't even need your email. pretty swag right?
-                <br><br>
-                [<a class="footer_link panel_footer" href="https://willowyx.github.io/name-pending/uwuify/feedback">
-                    launch feedback form
-                </a>]
-            </div>
-        </div>
     </div>
 
     <div class="footer elheader">
         <a class="footer_link" href="https://willowyx.dev/projects/uwuify">docs</a>
-        <a class="footer_link" href="https://github.com/willowyx/uwuify-doer">github</a>
+        <a class="footer_link" href="https://github.com/pulledandcommited/modified_uwuify_extension">github</a>
     </div>
 
 </body>

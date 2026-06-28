@@ -1,7 +1,7 @@
 var api = typeof browser !== 'undefined' ? browser : chrome;
 
 async function safe_uwuify() {
-    const value = await getState('prefs_uwuify');
+    const value = await getState('prefs_permauwu');
     if (value) {
 		await callSafe_bg(true);
     }
@@ -14,7 +14,7 @@ api.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 });
 
 async function call_uwuify() {
-	// AI GENERATED PIECE OF CODE BECAUSE IM TOO DUMB TO FIGURE THIS OUT MYSELF 
+	await uwuifyText(document.body);
 	const observer = new MutationObserver((mutations) => {
 		mutations.forEach((mutation) => {
 			mutation.addedNodes.forEach((node) => {
@@ -27,19 +27,28 @@ async function call_uwuify() {
 		});
 	});
 	observer.observe(document.body, {childList: true, subtree: true});
-	/////////
-	
-    await uwuifyText(document.body);
 }
 
-function enableUwuify() {
+function enable_uwuify() {
     api.storage.sync.set({ prefs_uwuify: true }, function () {
         populate_prefs();
     });
 }
 
-function disableUwuify() {
+function disable_uwuify() {
     api.storage.sync.set({ prefs_uwuify: false }, function () {
+        populate_prefs();
+    });
+}
+
+function enable_permauwu() {
+    api.storage.sync.set({ prefs_permauwu: true }, function () {
+        populate_prefs();
+    });
+}
+
+function disable_permauwu() {
+    api.storage.sync.set({ prefs_permauwu: false }, function () {
         populate_prefs();
     });
 }
@@ -72,6 +81,11 @@ async function checkStateLayoutModal() {
     return value;
 }
 
+async function checkUwuify() {
+    const value = await getState('prefs_uwuify');
+    return value;
+}
+
 async function checkUwuAmount() {
     const value = await getState('prefs_moreuwu');
     return value;
@@ -79,6 +93,11 @@ async function checkUwuAmount() {
 
 async function checkburr() {
     const value = await getState('prefs_burr');
+    return value;
+}
+
+async function checkdr_text_highlight() {
+    const value = await getState('prefs_dr_text_highlight');
     return value;
 }
 
@@ -95,7 +114,13 @@ async function uwuifyText(node) {
             }
             parent = parent.parentNode;
         }
-        node.textContent = await uwuify(node.textContent);
+		
+		if ((await checkdr_text_highlight() == true)) {
+			let newText = await uwuify(node.parentNode.textContent);
+			node.parentNode.innerHTML = newText;
+		} else {
+			node.parentNode.textContent = await uwuify(node.parentNode.textContent);
+		}
     } else {
         for (let i = 0; i < node.childNodes.length; i++) {
             uwuifyText(node.childNodes[i]);
@@ -104,30 +129,55 @@ async function uwuifyText(node) {
 }
 
 async function uwuify(str) {
-    str = str.replace(/Chr|chr/g, 'cw')
-        .replace(/Ove|ove/g, 'uv')
-        .replace(/ss|SS/g, 'sh')
-        .replace(/n([aeiou])/g, 'ny$1')
-        .replace(/N([aeiou])/g, 'Ny$1')
-		.replace(/N([AEIOU])/g, 'Ny$1')
-		.replace(/([Нн])а/g, "$1ья")
-		.replace(/([Нн])у/g, "$1ью")
-		.replace(/в/g, "ф")
-		.replace(/ль/g, "л")
-		.replace(/([ЧчЩщ])а/g, "$1я")
-		.replace(/([ЧчЩщ])у/g, "$1ю")
-		.replace(/([Лл])/g, "$1ь")
-		.replace(/ия/g, "ья")
-		.replace(/ИЯ/g, "ЬЯ");
+	if ((await checkUwuify() === true)) {
+		str = str.replace(/Chr|chr/g, 'cw')
+			.replace(/Ove|ove/g, 'uv')
+			.replace(/ss|SS/g, 'sh')
+			.replace(/n([aeiou])/g, 'ny$1')
+			.replace(/N([aeiou])/g, 'Ny$1')
+			.replace(/N([AEIOU])/g, 'Ny$1')
+			.replace(/([Нн])а/g, "$1ья")
+			.replace(/([Нн])у/g, "$1ью")
+			.replace(/в/g, "ф")
+			.replace(/ль/g, "л")
+			.replace(/([ЧчЩщ])а/g, "$1я")
+			.replace(/([ЧчЩщ])у/g, "$1ю")
+			.replace(/([Лл])/g, "$1ь")
+			.replace(/ия/g, "ья")
+			.replace(/ИЯ/g, "ЬЯ");
+	}
 		
-	if ((await checkburr() == true)) {
+	if ((await checkburr() === true)) {
 		str = str.replace(/r|l/g, 'w')
 			.replace(/R|L/g, 'W')
 			.replace(/([ЛР])/g, "В")
 			.replace(/([лр])/g, 'в');
 	}
 
-    if ((await checkUwuAmount() == true)) {
+	if ((await checkdr_text_highlight() === true)) {
+		let sentences = str.split(/(?<=[.,!?])\s+/);
+        for (let i = 0; i < sentences.length; i++) {
+            let words = sentences[i].split(' ');
+            if (words.length >= 1) {
+                if (Math.random() < 0.03) { // CHANCE
+                    let lastWord = words[words.length - 1];
+					if (Math.random() < 0.5) {
+						words[words.length - 1] = '<b><span style="text-shadow: 0px 0px 8px rgba(255, 0, 0, 1); color:red;">' + lastWord + '</span></b>';
+                    
+					}
+					else {
+						words[words.length - 1] = '<b><span style="text-shadow: 0px 0px 8px rgba(255, 255, 0, 1); color:yellow;">' + lastWord + '</span></b>';
+                    
+					}
+                    sentences[i] = words.join(' ');
+                }
+            }
+        }
+        str = sentences.join(' ');
+		// <b><span style="color: red;"> WORD </span></b>
+	}
+
+    if ((await checkUwuAmount() === true)) {
         let sentences = str.split(/(?<=[.,!?])\s+/);
         for (let i = 0; i < sentences.length; i++) {
             let words = sentences[i].split(' ');
